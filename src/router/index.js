@@ -1,6 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-
-
 const router = createRouter({
   history: createWebHashHistory(),
   // 映射关系 path -> component
@@ -27,5 +25,4 @@ const router = createRouter({
     }
   ]
 })
-
 export default router 

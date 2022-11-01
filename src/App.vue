@@ -1,5 +1,4 @@
 <template>
-
 <router-view />
 <router-link to="/home">首页</router-link>
 <router-link to="/favor">收藏</router-link>
