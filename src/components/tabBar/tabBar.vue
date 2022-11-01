@@ -1,7 +1,7 @@
 <template>
   <div class="tabBar-container">
     <template v-for="item,index in tabBarData" :key="index">
-      <div class="tabBar-item" @click="itemClick(index)">
+      <div class="tabBar-item" @click="itemClick(item,index)">
         <img v-if="currentIndex === index" :src="getAssetUrl(item.imageActive)" alt="">
         <img v-else :src="getAssetUrl(item.image)" alt="">
         <span class="tabBar-item-text" :class="{active:currentIndex === index}">{{item.text}}</span>
@@ -10,47 +10,18 @@
   </div>
 </template>
 <script setup>
-import {ref} from 'vue'
-// tabBar 数据
-const tabBarData = [
-  {
-    text: '首页',
-    image: 'tab_home.png',
-    imageActive: 'tab_home_active.png',
-    path:'/home'
-  },
-  {
-    text: '收藏',
-    image: 'tab_favor.png',
-    imageActive: 'tab_favor_active.png',
-    path:'/favor'
-  },
-  {
-    text: '订单',
-    image: 'tab_order.png',
-    imageActive: 'tab_order_active.png',
-    path:'/order'
-  },
-  {
-    text: '消息',
-    image: 'tab_message.png',
-    imageActive: 'tab_message.png',
-    path:'/message'
-  }
-]
-// 获取图片的正确路径
-function getAssetUrl(image) {
-  // new Url()
-  // 参数一 : 相对路径
-  // 参数二 : 当前路径 -> 可以使用 import.meta.url 获取到
-  return new URL(`../../assets/img/tabBar/${image}`, import.meta.url).href
-}
-
+import { ref } from 'vue'
+import { useRouter } from 'vue-router';
+import { getAssetUrl } from '@/utils/get-asset-url'
+import tabBarData from '@/assets/data/tabBar'
+const router = useRouter()
 // 当前 导航页index
 const currentIndex = ref(0)
+
 // 点击 某一个导航栏
-const itemClick = (index) => {
+const itemClick = (item,index) => {
   currentIndex.value = index
+  router.push(item.path)
 }
 
 </script>
