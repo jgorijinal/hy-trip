@@ -14,16 +14,23 @@
     <!--标签页-->
     <van-tabs v-model:active="tabActive" color="#ff9854">
       <template v-for="value,key,index in allCities" :key="key">
-        <van-tab :title="value.title"></van-tab>
+        <van-tab :title="value.title" :name="key"></van-tab>
       </template>
     </van-tabs>
+    <!--城市内容-->
+    <div class="content">
+      <template v-for="value,key,index in allCities" :key="index">
+        <city-group v-show="key === tabActive" :current-group="value" />
+      </template>
+    </div>
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref ,computed} from "vue";
 import { useRouter } from "vue-router";
 import useCityStore from '@/store/modules/city'
 import { storeToRefs } from 'pinia';
+import cityGroup from './cpns/city-group.vue';
 // 搜索值
 const searchValue = ref("");
 const router = useRouter();
@@ -36,11 +43,19 @@ const onCancel = () => {
   console.log("取消");
   router.back();
 }; 
-// 激活的标签页索引
-const tabActive = ref(0)
-
+// 激活的标签页索引 -> 没有配 van-tab的 name 属性的话是索引值, 如果传了 name 就是 name 属性
+const tabActive = ref()
+// pinia 城市数据
 const cityStore = useCityStore()
 cityStore.fetchAllCitiesData()
 const { allCities } = storeToRefs(cityStore)
+
+// 激活的标签页 城市数据
+const currentGroup = computed(()=> allCities.value[tabActive.value])
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.content {
+  height:calc(100vh - 98px);
+  overflow-y: auto;
+}
+</style>
