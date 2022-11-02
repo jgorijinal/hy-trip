@@ -1,7 +1,7 @@
 <template>
   <div class="home-search-box">
     <div class="location">
-    <div class="city">广州</div>
+    <div class="city" @click="$router.push('/city')">广州</div>
     <div class="position" @click="positionClick">
       <span class="text">我的位置</span>
       <img src="@/assets/img/home/icon_location.png" alt="">
