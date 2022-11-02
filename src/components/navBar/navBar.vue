@@ -52,6 +52,7 @@ const clickRight = () => {
   justify-content: center;
   align-items: center;
   height:46px;
+  font-size:16px;
   border-bottom:1px solid rgb(228, 225, 225);
   .eren-navBar-left{
     position:absolute;
