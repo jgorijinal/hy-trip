@@ -1,6 +1,7 @@
 <template>
   <div class="city">
-    <!--搜索框-->
+    <div class="city-top">
+      <!--搜索框-->
     <form action="/">
       <van-search
         v-model="searchValue"
@@ -17,6 +18,7 @@
         <van-tab :title="value.title" :name="key"></van-tab>
       </template>
     </van-tabs>
+    </div>
     <!--城市内容-->
     <div class="content">
       <template v-for="value,key,index in allCities" :key="index">
@@ -57,5 +59,9 @@ const currentGroup = computed(()=> allCities.value[tabActive.value])
 .content {
   height:calc(100vh - 98px);
   overflow-y: auto;
+}
+.city-top {
+  position:relative;
+  z-index:9;
 }
 </style>
