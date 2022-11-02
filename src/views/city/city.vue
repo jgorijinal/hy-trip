@@ -13,15 +13,17 @@
     </form>
     <!--标签页-->
     <van-tabs v-model:active="tabActive" color="#ff9854">
-      <van-tab title="国内·港澳台"></van-tab>
-      <van-tab title="国外"></van-tab>
+      <template v-for="value,key,index in allCities" :key="key">
+        <van-tab :title="value.title"></van-tab>
+      </template>
     </van-tabs>
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { getCityAll } from '@/service'
+import useCityStore from '@/store/modules/city'
+import { storeToRefs } from 'pinia';
 // 搜索值
 const searchValue = ref("");
 const router = useRouter();
@@ -37,10 +39,8 @@ const onCancel = () => {
 // 激活的标签页索引
 const tabActive = ref(0)
 
-const getAllCities = async () => {
-  const res = await getCityAll()
-  console.log(res.data)
-}
-getAllCities()
+const cityStore = useCityStore()
+cityStore.fetchAllCitiesData()
+const { allCities } = storeToRefs(cityStore)
 </script>
 <style lang="less" scoped></style>
