@@ -28,7 +28,7 @@
   </div>
 </template>
 <script setup>
-import { ref ,computed} from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import useCityStore from '@/store/modules/city'
 import { storeToRefs } from 'pinia';
@@ -53,7 +53,7 @@ cityStore.fetchAllCitiesData()
 const { allCities } = storeToRefs(cityStore)
 
 // 激活的标签页 城市数据
-const currentGroup = computed(()=> allCities.value[tabActive.value])
+// const currentGroup = computed(()=> allCities.value[tabActive.value])
 </script>
 <style lang="less" scoped>
 .content {
