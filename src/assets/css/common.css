@@ -2,6 +2,8 @@
   --primary-color:#ff9854;
   /*搜索框左侧 icon 颜色*/
   --van-search-left-icon-color:var(--primary-color) !important;
+  /*日历全屏*/
+  --van-calendar-popup-height : 100% !important;
 }
 body {
   font-size:16px;

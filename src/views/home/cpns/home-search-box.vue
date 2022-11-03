@@ -8,7 +8,7 @@
     </div>
   </div>
    <!--选择日期范围-->
-   <div class="section item date-range">
+   <div class="section item date-range" @click="calendarVisible = true">
       <div class="start">
         <div class="date">
           <span class="tip">入住</span>
@@ -23,6 +23,13 @@
         </div>
       </div>
     </div>
+    <van-calendar 
+      v-model:show="calendarVisible" 
+      @confirm="onConfirm" 
+      color="#ff9854"
+      type="range" 
+      :round="false"
+    />
   </div>
 </template>
 <script setup>
@@ -63,6 +70,15 @@ const { currentCity } = storeToRefs(cityStore)
 // 日期范围 
 const startDate = ref(formatDate(new Date()))
 const endDate = ref(formatDate(new Date().setDate((new Date().getDate() + 1))))
+
+// 日历显示/隐藏
+const calendarVisible = ref(false)
+// 日历点击了确定
+const onConfirm = (value) => {
+  startDate.value = formatDate(value[0])
+  endDate.value = formatDate(value[1])
+  calendarVisible.value = false
+}
 </script>
 <style lang="less" scoped>
   .location {
