@@ -5,14 +5,14 @@
       <van-index-anchor index="#">热门</van-index-anchor>
       <div class="hotCity">
         <template v-for="hotCity,index in currentGroup.hotCities" :key="index">
-          <div class="hotCity-item">{{hotCity.cityName}}</div>
+          <div class="hotCity-item" @click="cityClick(hotCity)">{{hotCity.cityName}}</div>
         </template>
       </div>
       <template v-for="(group, index) in currentGroup?.cities" :key="index">
         <!--城市数据-->
         <van-index-anchor :index="group.group" />
         <template v-for="(city, index) in group.cities" :key="index">
-          <van-cell :title="city.cityName" />
+          <van-cell :title="city.cityName"  @click="cityClick(city)"/>
         </template>
       </template>
     </van-index-bar>
@@ -20,6 +20,8 @@
 </template>
 <script setup>
 import { computed } from 'vue'
+import  useCityStore from "@/store/modules/city"
+import { useRouter } from 'vue-router';
 const props = defineProps({
   // 城市数据
   currentGroup: {
@@ -33,6 +35,16 @@ const indexList = computed(() => {
   const alphabetList = props.currentGroup.cities.map(item => item.group)
   return ['#', ...alphabetList] 
 })
+
+// pinia 中的 cityStore
+const cityStore = useCityStore()
+// 点击城市
+const router = useRouter()
+const cityClick = (city) => {
+  cityStore.currentCity = city
+  router.back()
+}
+
 </script>
 <style lang="less" scoped>
 .hotCity {

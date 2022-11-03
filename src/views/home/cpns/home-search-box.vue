@@ -1,7 +1,7 @@
 <template>
   <div class="home-search-box">
     <div class="location">
-    <div class="city" @click="$router.push('/city')">广州</div>
+    <div class="city" @click="$router.push('/city')">{{currentCity.cityName}}</div>
     <div class="position" @click="positionClick">
       <span class="text">我的位置</span>
       <img src="@/assets/img/home/icon_location.png" alt="">
@@ -10,6 +10,8 @@
   </div>
 </template>
 <script setup>
+import useCityStore from '@/store/modules/city';
+import { storeToRefs } from 'pinia';
 function getPosition() {
         if(navigator.geolocation){
             //navigator.geolocation.getCurrentPosition这个方法里面有三个参数
@@ -35,6 +37,10 @@ function getPosition() {
 const positionClick = () =>{
   getPosition();
 }
+
+const cityStore = useCityStore()
+// pinia 中获取到当前所选的城市
+const { currentCity  } = storeToRefs(cityStore)
 </script>
 <style lang="less" scoped>
   .location {
