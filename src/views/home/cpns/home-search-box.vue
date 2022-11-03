@@ -46,6 +46,10 @@
       </div>
     </template>
   </div>
+  <!--搜索按钮-->
+  <div class="section search-btn">
+    <div class="search-btn-item" @click="searchClick">开始搜索</div>
+  </div>
 </template>
 <script setup>
 import useCityStore from '@/store/modules/city';
@@ -53,6 +57,7 @@ import { formatDate,getDiffDays } from '@/utils/format-date';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue'
 import useHomeStore from '@/store/modules/home';
+import { useRouter } from 'vue-router'
 function getPosition() {
         if(navigator.geolocation){
             //navigator.geolocation.getCurrentPosition这个方法里面有三个参数
@@ -82,7 +87,7 @@ const positionClick = () =>{
 const cityStore = useCityStore()
 // pinia 中获取到当前所选的城市
 const { currentCity } = storeToRefs(cityStore)
-
+console.log(currentCity.value)
 // 日期范围 
 const nowDate = new Date()
 const newDate = new Date().setDate((new Date().getDate() + 1))
@@ -104,6 +109,19 @@ const onConfirm = (value) => {
 // 获取热门建议 : 网络请求在 home.vue 页面发了, 这里获取热门建议数据
 const homeStore = useHomeStore()
 const { hotSuggests } = storeToRefs(homeStore)
+
+// 点击搜索按钮
+const router = useRouter()
+const searchClick = () => {
+  router.push({
+    path: '/search',
+    query: {
+      startDate: startDate.value,
+      endDate: endDate.value,
+      currentCity:currentCity.value.cityName
+    }
+  })
+}
 </script>
 <style lang="less" scoped>
   .location {
@@ -178,12 +196,25 @@ const { hotSuggests } = storeToRefs(homeStore)
   height: auto;
 
   .item {
-    padding: 4px 8px;
+    padding: 6px 8px;
     margin: 4px;
     border-radius: 14px;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1;
   }
 }
 
+.search-btn {
+  display: flex;
+  &-item {
+    flex:1;
+    border-radius:20px;
+    background-image: linear-gradient(to right , #ff9854, #ffc654);
+    padding:10px;
+    color:white;
+    display: flex;
+    justify-content: center;
+    font-size:18px;
+  }
+}
 </style>
