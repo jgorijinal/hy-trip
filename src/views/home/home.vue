@@ -6,16 +6,19 @@
     <img src="@/assets/img/home/banner.webp" alt="">
   </div>
   <home-search-box />
+  <home-categories />
 </template>
 <script setup>
 import navBar from '@/components/navBar/navBar.vue';
 import homeSearchBox from './cpns/home-search-box.vue';
+import homeCategories from './cpns/home-categories.vue';
 import useHomeStore from '@/store/modules/home';
 
 
 // 调用 action : 获取热门剪辑
 const homeStore = useHomeStore()
 homeStore.fetchHotSuggests()
+homeStore.fetchCategories()
 
 </script>
 <style lang="less" scoped>

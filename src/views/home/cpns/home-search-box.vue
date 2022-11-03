@@ -87,7 +87,6 @@ const positionClick = () =>{
 const cityStore = useCityStore()
 // pinia 中获取到当前所选的城市
 const { currentCity } = storeToRefs(cityStore)
-console.log(currentCity.value)
 // 日期范围 
 const nowDate = new Date()
 const newDate = new Date().setDate((new Date().getDate() + 1))
