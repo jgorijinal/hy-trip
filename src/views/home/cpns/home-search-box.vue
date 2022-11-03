@@ -7,11 +7,29 @@
       <img src="@/assets/img/home/icon_location.png" alt="">
     </div>
   </div>
+   <!--选择日期范围-->
+   <div class="section item date-range">
+      <div class="start">
+        <div class="date">
+          <span class="tip">入住</span>
+          <span class="time">{{startDate}}</span>
+        </div>
+        <div class="stay">共一晚</div>
+      </div>
+      <div class="end">
+        <div class="date">
+          <span class="tip">商店</span>
+          <span class="time">{{endDate}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script setup>
 import useCityStore from '@/store/modules/city';
+import { formatDate } from '@/utils/format-date';
 import { storeToRefs } from 'pinia';
+import { ref } from 'vue'
 function getPosition() {
         if(navigator.geolocation){
             //navigator.geolocation.getCurrentPosition这个方法里面有三个参数
@@ -40,7 +58,11 @@ const positionClick = () =>{
 
 const cityStore = useCityStore()
 // pinia 中获取到当前所选的城市
-const { currentCity  } = storeToRefs(cityStore)
+const { currentCity } = storeToRefs(cityStore)
+
+// 日期范围 
+const startDate = ref(formatDate(new Date()))
+const endDate = ref(formatDate(new Date().setDate((new Date().getDate() + 1))))
 </script>
 <style lang="less" scoped>
   .location {
@@ -58,4 +80,51 @@ const { currentCity  } = storeToRefs(cityStore)
     img{width:18px;height:18px;margin-left:6px;}
   }
 }
+.section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0 20px;
+  color: #999;
+  height: 44px;
+
+  .start {
+    flex: 1;
+    display: flex;
+    height: 44px;
+    align-items: center;
+  }
+
+  .end {
+    min-width: 30%;
+    padding-left: 20px;
+  }
+
+  .date {
+    display: flex;
+    flex-direction: column;
+
+    .tip {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .time {
+      margin-top: 3px;
+      color: #333;
+      font-size: 15px;
+      font-weight: 500;
+    }
+  }
+}
+.date-range {
+  height: 44px;
+  .stay {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+  }
+}
+
 </style>
