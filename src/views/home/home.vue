@@ -10,6 +10,13 @@
 <script setup>
 import navBar from '@/components/navBar/navBar.vue';
 import homeSearchBox from './cpns/home-search-box.vue';
+import useHomeStore from '@/store/modules/home';
+
+
+// 调用 action : 获取热门剪辑
+const homeStore = useHomeStore()
+homeStore.fetchHotSuggests()
+
 </script>
 <style lang="less" scoped>
 .banner{

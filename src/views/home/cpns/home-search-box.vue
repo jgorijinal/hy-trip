@@ -38,13 +38,21 @@
   </div>
   <!-- 关键字 -->
   <div class="section keyword bottom-gray-line">关键字/位置/民宿名</div>
-
+  <!--热门搜索建议-->
+  <div class="section hot-suggests" bottom-gray-line>
+    <template v-for="item,index in hotSuggests" :key="index">
+      <div class="item" :style="{color:item.tagText.color,backgroundColor:item.tagText.background.color}">
+        {{item.tagText.text}}
+      </div>
+    </template>
+  </div>
 </template>
 <script setup>
 import useCityStore from '@/store/modules/city';
 import { formatDate,getDiffDays } from '@/utils/format-date';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue'
+import useHomeStore from '@/store/modules/home';
 function getPosition() {
         if(navigator.geolocation){
             //navigator.geolocation.getCurrentPosition这个方法里面有三个参数
@@ -92,6 +100,10 @@ const onConfirm = (value) => {
   calendarVisible.value = false
   diffDays.value = getDiffDays(value[0],value[1])
 }
+
+// 获取热门建议 : 网络请求在 home.vue 页面发了, 这里获取热门建议数据
+const homeStore = useHomeStore()
+const { hotSuggests } = storeToRefs(homeStore)
 </script>
 <style lang="less" scoped>
   .location {
