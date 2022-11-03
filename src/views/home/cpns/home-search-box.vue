@@ -1,6 +1,6 @@
 <template>
   <div class="home-search-box">
-    <div class="location">
+    <div class="location bottom-gray-line">
     <div class="city" @click="$router.push('/city')">{{currentCity.cityName}}</div>
     <div class="position" @click="positionClick">
       <span class="text">我的位置</span>
@@ -8,13 +8,13 @@
     </div>
   </div>
    <!--选择日期范围-->
-   <div class="section item date-range" @click="calendarVisible = true">
+   <div class="section item date-range bottom-gray-line" @click="calendarVisible = true">
       <div class="start">
         <div class="date">
           <span class="tip">入住</span>
           <span class="time">{{startDate}}</span>
         </div>
-        <div class="stay">共一晚</div>
+        <div class="stay">共 {{diffDays}} 晚</div>
       </div>
       <div class="end">
         <div class="date">
@@ -31,10 +31,18 @@
       :round="false"
     />
   </div>
+  <!-- 价格/人数选择 -->
+  <div class="section price-counter bottom-gray-line">
+    <div class="start">价格不限</div>
+    <div class="end">人数不限</div>
+  </div>
+  <!-- 关键字 -->
+  <div class="section keyword bottom-gray-line">关键字/位置/民宿名</div>
+
 </template>
 <script setup>
 import useCityStore from '@/store/modules/city';
-import { formatDate } from '@/utils/format-date';
+import { formatDate,getDiffDays } from '@/utils/format-date';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue'
 function getPosition() {
@@ -68,8 +76,12 @@ const cityStore = useCityStore()
 const { currentCity } = storeToRefs(cityStore)
 
 // 日期范围 
-const startDate = ref(formatDate(new Date()))
-const endDate = ref(formatDate(new Date().setDate((new Date().getDate() + 1))))
+const nowDate = new Date()
+const newDate = new Date().setDate((new Date().getDate() + 1))
+const startDate = ref(formatDate(nowDate))
+const endDate = ref(formatDate(newDate))
+// 相差的天数
+const diffDays = ref(getDiffDays(nowDate, newDate))
 
 // 日历显示/隐藏
 const calendarVisible = ref(false)
@@ -78,6 +90,7 @@ const onConfirm = (value) => {
   startDate.value = formatDate(value[0])
   endDate.value = formatDate(value[1])
   calendarVisible.value = false
+  diffDays.value = getDiffDays(value[0],value[1])
 }
 </script>
 <style lang="less" scoped>
@@ -102,12 +115,12 @@ const onConfirm = (value) => {
   align-items: center;
   padding: 0 20px;
   color: #999;
-  height: 44px;
+  height: 52px;
 
   .start {
     flex: 1;
     display: flex;
-    height: 44px;
+    height: 52px;
     align-items: center;
   }
 
@@ -134,12 +147,30 @@ const onConfirm = (value) => {
   }
 }
 .date-range {
-  height: 44px;
+  height: 52px;
   .stay {
     flex: 1;
     text-align: center;
     font-size: 12px;
     color: #666;
+  }
+}
+.price-counter {
+  .start {
+    border-right: 1px solid #f8f7f6;
+  }
+}
+
+.hot-suggests {
+  margin: 10px 0;
+  height: auto;
+
+  .item {
+    padding: 4px 8px;
+    margin: 4px;
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 1;
   }
 }
 
