@@ -13,7 +13,7 @@ import { storeToRefs } from 'pinia';
 import houseItemV9 from '@/components/house-item-v9/house-item-v9.vue';
 import houseItemV3 from '@/components/house-item-v3/house-item-v3.vue';
 import useScroll from '@/hooks/useScroll'
-import { watch } from 'vue'
+import { watch,ref } from 'vue'
 // 房屋列表 : Pinia 里获取
 const homeStore = useHomeStore()
 const { houseList } = storeToRefs(homeStore)
@@ -30,6 +30,17 @@ watch(isReachBottom, (newValue) => {
     homeStore.fetchHouseList().then(() => {
       isReachBottom.value = false
     })
+  }
+})
+// 搜索栏的 显示/隐藏
+const searchVisible = ref(false)
+// Hooks 获滚动的高度
+const { scrollTop } = useScroll()
+watch(scrollTop, (newValue) => {
+  if (newValue > 200) {
+    searchVisible.value = true
+  } else {
+    searchVisible.value = false
   }
 })
 </script>
