@@ -23,7 +23,7 @@ const moreListClick = () => {
   homeStore.fetchHouseList()
 }
 
-// 使用 监听到达底部 Hooks
+// 使用监听到达页面底部的  Hooks
 const {isReachBottom } = useScroll()
 watch(isReachBottom, (newValue) => {
   if (newValue === true) {
