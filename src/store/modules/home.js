@@ -24,7 +24,6 @@ const useHomeStore = defineStore('home', {
     // 获取房屋列表
     async fetchHouseList() {
       const res = await getHouseList(this.currentPage)
-      console.log(res.data)
       // 追加
       this.houseList.push(...res.data)
       // 页码要加一

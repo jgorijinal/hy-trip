@@ -18,7 +18,6 @@ import homeSearchBox from './cpns/home-search-box.vue';
 import homeCategories from './cpns/home-categories.vue';
 import useHomeStore from '@/store/modules/home';
 import homeHouseList from './cpns/home-house-list.vue';
-
 // 调用 action : 获取热门剪辑
 const homeStore = useHomeStore()
 homeStore.fetchHotSuggests()
