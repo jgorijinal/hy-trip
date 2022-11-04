@@ -3,11 +3,11 @@
     <div class="select-time">
       <div class="item start">
         <div class="name">住</div>
-        <div class="date">08.11</div>
+        <div class="date">{{startDateStr}}</div>
       </div>
       <div class="item end">
         <div class="name">离</div>
-        <div class="date">08.12</div>
+        <div class="date">{{endDateStr}}</div>
       </div>
     </div>
     <div class="content">
@@ -18,7 +18,19 @@
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import useMainStore from '@/store/modules/main'
+import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+import { formatDate } from '@/utils/format-date'
+
+const mainStore = useMainStore()
+const { startDate, endDate } = storeToRefs(mainStore)
+const startDateStr = computed(() => formatDate(startDate.value, 'MM.DD'))
+const endDateStr = computed(() => formatDate(endDate.value, 'MM.DD'))
+
+
+</script>
 <style lang="less" scoped>
 .search {
   display: flex;
