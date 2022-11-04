@@ -12,14 +12,14 @@
       <div class="start">
         <div class="date">
           <span class="tip">入住</span>
-          <span class="time">{{startDate}}</span>
+          <span class="time">{{startDateStr}}</span>
         </div>
         <div class="stay">共 {{diffDays}} 晚</div>
       </div>
       <div class="end">
         <div class="date">
           <span class="tip">商店</span>
-          <span class="time">{{endDate}}</span>
+          <span class="time">{{endDateStr}}</span>
         </div>
       </div>
     </div>
@@ -55,9 +55,10 @@
 import useCityStore from '@/store/modules/city';
 import { formatDate,getDiffDays } from '@/utils/format-date';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue'
+import { ref,computed } from 'vue'
 import useHomeStore from '@/store/modules/home';
 import { useRouter } from 'vue-router'
+import  useMainStore from '@/store/modules/main.js'
 function getPosition() {
         if(navigator.geolocation){
             //navigator.geolocation.getCurrentPosition这个方法里面有三个参数
@@ -87,20 +88,24 @@ const positionClick = () =>{
 const cityStore = useCityStore()
 // pinia 中获取到当前所选的城市
 const { currentCity } = storeToRefs(cityStore)
-// 日期范围 
-const nowDate = new Date()
-const newDate = new Date().setDate((new Date().getDate() + 1))
-const startDate = ref(formatDate(nowDate))
-const endDate = ref(formatDate(newDate))
+
+// 日期范围
+// 日期保存在了 useMainStore 里面
+const mainStore = useMainStore()
+const { startDate, endDate } = storeToRefs(mainStore)
+
+const startDateStr = computed(()=> formatDate(startDate.value))
+const endDateStr = computed(()=>formatDate(endDate.value))
 // 相差的天数
-const diffDays = ref(getDiffDays(nowDate, newDate))
+const diffDays = ref(getDiffDays(startDate.value, endDate.value))
 
 // 日历显示/隐藏
 const calendarVisible = ref(false)
 // 日历点击了确定
 const onConfirm = (value) => {
-  startDate.value = formatDate(value[0])
-  endDate.value = formatDate(value[1])
+  startDate.value = value[0]
+  endDate.value = value[1]
+  
   calendarVisible.value = false
   diffDays.value = getDiffDays(value[0],value[1])
 }
