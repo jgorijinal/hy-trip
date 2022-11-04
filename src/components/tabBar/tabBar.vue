@@ -28,13 +28,14 @@ const itemClick = (item,index) => {
 <style lang="less" scoped>
 .tabBar-container{
   position:fixed;
-  bottom:0;
+  bottom:-1px;
   left:0;
   right:0;
   height:50px;
   display: flex;
   align-items: center;
   border-top:1px solid #e3e0e0;
+  background-color: white;
   .tabBar-item {
     display: flex;
     justify-content: center;

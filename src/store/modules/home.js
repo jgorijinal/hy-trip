@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
-import { getHotSuggest,getCategories } from '@/service';
+import { getHotSuggest,getCategories,getHouseList } from '@/service';
 
 const useHomeStore = defineStore('home', {
   state: () => {
     return {
       hotSuggests: [],
-      categories:[]
+      categories: [],
+      currentPage:1,
+      houseList:[],
     }
   },
   actions: {
@@ -18,6 +20,15 @@ const useHomeStore = defineStore('home', {
     async fetchCategories() { 
       const res = await getCategories()
       this.categories = res.data
+    },
+    // 获取房屋列表
+    async fetchHouseList() {
+      const res = await getHouseList(this.currentPage)
+      console.log(res.data)
+      // 追加
+      this.houseList.push(...res.data)
+      // 页码要加一
+      this.currentPage++
     }
   }
 })
