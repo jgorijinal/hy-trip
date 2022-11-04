@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <nav-bar title="安逸旅途"></nav-bar>
-  </div>
   <div class="banner">
     <img src="@/assets/img/home/banner.webp" alt="">
   </div>
@@ -11,6 +10,7 @@
   <home-categories />
   <!--房屋列表-->
   <home-house-list />
+</div>
 </template>
 <script setup>
 import navBar from '@/components/navBar/navBar.vue';
@@ -25,6 +25,9 @@ homeStore.fetchCategories()
 homeStore.fetchHouseList()
 </script>
 <style lang="less" scoped>
+.home {
+  padding-bottom:51px;
+}
 .banner{
   img {
     width:100%
