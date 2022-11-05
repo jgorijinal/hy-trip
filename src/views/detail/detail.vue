@@ -9,9 +9,11 @@
     <!--轮播图-->
     <div class="main" v-if="mainPart">
       <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics"/>
+        <!--信息-->
+      <detail-info :top-infos="mainPart.topModule" />
+      <!--房屋设施-->
+      <detail-facility :house-facility="mainPart.dynamicModule.facilityModule.houseFacility" />
     </div>
-    <!--信息-->
-    <detail-info :top-infos="mainPart?.topModule"></detail-info>
   </div>
 </template>
 <script setup>
@@ -20,7 +22,7 @@ import { getDetailInfos } from '@/service/modules/detail'
 import { ref, computed } from 'vue'
 import detailSwipe from './cpns/detail-01-swipe.vue';
 import detailInfo from './cpns/detail-02-info.vue';
-
+import detailFacility from './cpns/detail-03-facility.vue';
 const router = useRouter()
 const route = useRoute()
 // 返回键
