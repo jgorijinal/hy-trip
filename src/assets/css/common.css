@@ -4,6 +4,7 @@
   --van-search-left-icon-color:var(--primary-color) !important;
   /*日历全屏*/
   --van-calendar-popup-height : 100% !important;
+  --van-primary-color:var(--primary-color) !important;
 }
 body {
   font-size:16px;
