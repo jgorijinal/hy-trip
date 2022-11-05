@@ -10,13 +10,17 @@
     <div class="main" v-if="mainPart">
       <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics"/>
     </div>
+    <!--信息-->
+    <detail-info :top-infos="mainPart?.topModule"></detail-info>
   </div>
 </template>
 <script setup>
 import { useRouter,useRoute } from 'vue-router';
 import { getDetailInfos } from '@/service/modules/detail'
 import { ref, computed } from 'vue'
-import detailSwipe from './cpns/detail-swipe.vue';
+import detailSwipe from './cpns/detail-01-swipe.vue';
+import detailInfo from './cpns/detail-02-info.vue';
+
 const router = useRouter()
 const route = useRoute()
 // 返回键
@@ -28,7 +32,7 @@ const detailInfos = ref({})
 // 发请求获取
 getDetailInfos(route.params.id).then(res => {
   detailInfos.value = res.data
-  console.log(detailInfos.value)
+  console.log(res.data)
 })
 // mainPart 数据
 const mainPart = computed(() => detailInfos.value.mainPart)

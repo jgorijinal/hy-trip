@@ -31,7 +31,7 @@ const props = defineProps({
     default: () => [],
   },
 });
-console.log(props.swipeData)
+// console.log(props.swipeData)
 // 数据转化
 const swipeGroup = {}
 props.swipeData.forEach(item => {
