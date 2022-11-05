@@ -7,7 +7,9 @@ const useMainStore = defineStore('main',{
   state: () => {
     return {
       startDate:nowDate,
-      endDate:newDate
+      endDate: newDate,
+      // 加载动画
+      isLoading:false
     }
   }
 })
