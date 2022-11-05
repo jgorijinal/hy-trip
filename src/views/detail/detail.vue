@@ -13,6 +13,8 @@
       <detail-info :top-infos="mainPart.topModule" />
       <!--房屋设施-->
       <detail-facility :house-facility="mainPart.dynamicModule.facilityModule.houseFacility" />
+      <!--房东介绍-->
+      <detail-landlord :landlord="mainPart.dynamicModule.landlordModule"/>
     </div>
   </div>
 </template>
@@ -23,6 +25,7 @@ import { ref, computed } from 'vue'
 import detailSwipe from './cpns/detail-01-swipe.vue';
 import detailInfo from './cpns/detail-02-info.vue';
 import detailFacility from './cpns/detail-03-facility.vue';
+import detailLandlord from './cpns/detail-04-landlord.vue';
 const router = useRouter()
 const route = useRoute()
 // 返回键
