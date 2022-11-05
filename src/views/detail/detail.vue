@@ -15,6 +15,12 @@
       <detail-facility :house-facility="mainPart.dynamicModule.facilityModule.houseFacility" />
       <!--房东介绍-->
       <detail-landlord :landlord="mainPart.dynamicModule.landlordModule"/>
+      <!--评论-->
+      <detail-comment :comment="mainPart.dynamicModule.commentModule"/>
+      <!--预定须知-->
+      <detail-notice :order-rules="mainPart.dynamicModule.rulesModule.orderRules"/>
+      <!--百度地图-->
+      <detail-map :position="mainPart.dynamicModule.positionModule"/>
     </div>
   </div>
 </template>
@@ -26,6 +32,9 @@ import detailSwipe from './cpns/detail-01-swipe.vue';
 import detailInfo from './cpns/detail-02-info.vue';
 import detailFacility from './cpns/detail-03-facility.vue';
 import detailLandlord from './cpns/detail-04-landlord.vue';
+import detailComment from './cpns/detail-05-comment.vue';
+import detailNotice from './cpns/detail-06-notice.vue';
+import detailMap from './cpns/detail-07-map.vue';
 const router = useRouter()
 const route = useRoute()
 // 返回键
