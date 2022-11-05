@@ -6,12 +6,17 @@
       left-arrow
       @click-left="onClickLeft"
     />
+    <!--轮播图-->
+    <div class="main" v-if="mainPart">
+      <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics"/>
+    </div>
   </div>
 </template>
 <script setup>
 import { useRouter,useRoute } from 'vue-router';
 import { getDetailInfos } from '@/service/modules/detail'
-import { ref,computed } from 'vue'
+import { ref, computed } from 'vue'
+import detailSwipe from './cpns/detail-swipe.vue';
 const router = useRouter()
 const onClickLeft = () => {
   router.back()
