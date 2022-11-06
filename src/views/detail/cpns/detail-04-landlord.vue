@@ -70,6 +70,7 @@ defineProps({
     .left {
       display: flex;
       .avatar {
+        margin-right:6px;
         img {
           width: 54px;
           height: 54px;

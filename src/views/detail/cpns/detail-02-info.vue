@@ -84,6 +84,7 @@ defineProps({
 
     .right {
       color: #ff9645;
+      white-space: nowrap;
     }
   }
 

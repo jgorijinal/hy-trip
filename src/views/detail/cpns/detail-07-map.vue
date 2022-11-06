@@ -30,6 +30,6 @@ onMounted(() => {
 </script>
 <style lang="less" scoped>
 .map-item {
-  height:300px;
+  height:250px;
 }
 </style>

@@ -21,6 +21,12 @@
       <detail-notice :order-rules="mainPart.dynamicModule.rulesModule.orderRules"/>
       <!--百度地图-->
       <detail-map :position="mainPart.dynamicModule.positionModule"/>
+      <!--介绍-->
+      <detail-intro :price-intro="mainPart.introductionModule"/>
+    </div>
+    <div class="footer">
+      <img src="@/assets/img/detail/icon_ensure.png" alt="">
+      <div class="text">弘源旅途, 永无止境!</div>
     </div>
   </div>
 </template>
@@ -35,6 +41,7 @@ import detailLandlord from './cpns/detail-04-landlord.vue';
 import detailComment from './cpns/detail-05-comment.vue';
 import detailNotice from './cpns/detail-06-notice.vue';
 import detailMap from './cpns/detail-07-map.vue';
+import detailIntro from './cpns/detail-08-intro.vue';
 const router = useRouter()
 const route = useRoute()
 // 返回键
@@ -55,5 +62,22 @@ const mainPart = computed(() => detailInfos.value.mainPart)
 <style lang="less" scoped>
 .detail {
   height: 100vh;
+}
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+
+  img {
+    width: 123px;
+  }
+
+  .text {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #7688a7;
+  }
 }
 </style>
