@@ -50,7 +50,9 @@ import detailComment from './cpns/detail-05-comment.vue';
 import detailNotice from './cpns/detail-06-notice.vue';
 import detailMap from './cpns/detail-07-map.vue';
 import detailIntro from './cpns/detail-08-intro.vue';
-import  useScroll from '@/hooks/useScroll'
+import useScroll from '@/hooks/useScroll'
+import 'vant/es/toast/style';
+import { Toast } from 'vant';
 const router = useRouter()
 const route = useRoute()
 // 返回键
@@ -61,10 +63,14 @@ const onClickLeft = () => {
 const detailInfos = ref({})
 // 发请求获取
 getDetailInfos(route.params.id).then(res => {
+  if (res === '') {
+    Toast.fail('该房源不存在');
+    router.back()
+  }
   detailInfos.value = res.data
 })
 // mainPart 数据
-const mainPart = computed(() => detailInfos.value.mainPart)
+const mainPart = computed(() => detailInfos.value &&  detailInfos.value.mainPart)
 
 // 显示/隐藏 标签页 
 const tabVisible = ref(false)
