@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted, onActivated, onDeactivated } from 'vue';
 import { throttle } from 'underscore'
 export default function useScroll(elRef) {
-  console.log(elRef.value)
   let el = window
   // 是否到达底部
   const isReachBottom = ref(false)
@@ -28,7 +27,6 @@ export default function useScroll(elRef) {
     if(elRef){
       el = elRef.value
     }
-    console.log(el)
     el.addEventListener('scroll', scrollListener)
   })
   onActivated(() => {
