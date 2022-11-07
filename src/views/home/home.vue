@@ -18,6 +18,11 @@
   </Transition>
 </div>
 </template>
+<script>
+export default {
+  name:'home'
+}
+</script>
 <script setup>
 import navBar from '@/components/navBar/navBar.vue';
 import homeSearchBox from './cpns/home-search-box.vue';
